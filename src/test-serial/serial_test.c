@@ -2,7 +2,10 @@
 
 #include <application.h>
 #include <hal/uc/uart.h>
-#include <tasks/blink.h>
+
+#ifdef APP_ENABLE_BLINK
+#include <blink.h>
+#endif
 
 uint8_t test_serial_message[] = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 uint8_t test_serial_appl = 0;
@@ -50,7 +53,9 @@ static void test_serial_read_task(void)
     testif_read(&test_serial_read_buf[0], 1);
     test_serial_appl = test_serial_read_buf[0];
     if (test_serial_appl) {
+        #ifdef APP_ENABLE_BLINK
         set_blink_period(100);
+        #endif
         testif_putc(test_serial_appl, 0x00, 0x00);
     }
     return;
