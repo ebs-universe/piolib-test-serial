@@ -38,6 +38,32 @@ static inline void testif_send_trigger(void){
   return uart_send_trigger(TEST_SERIAL_INTFNUM);
 }
 
+#elif TEST_SERIAL_TYPE == 1
+
+static inline HAL_BASE_t testif_population_rxb(void) {
+  return usbcdc_population_rxb(TEST_SERIAL_INTFNUM);
+}
+
+static inline HAL_BASE_t testif_read(uint8_t *buffer, HAL_BASE_t len) {
+  return usbcdc_read(TEST_SERIAL_INTFNUM, buffer, len);
+}
+
+static inline HAL_BASE_t testif_putc(uint8_t byte, uint8_t token, HAL_BASE_t handlelock){
+  return usbcdc_putc(TEST_SERIAL_INTFNUM, byte, token, handlelock);
+}
+ 
+static inline HAL_BASE_t testif_reqlock(HAL_BASE_t len, uint8_t token){
+  return usbcdc_reqlock(TEST_SERIAL_INTFNUM, len, token);
+}
+
+static inline HAL_BASE_t testif_write(uint8_t *buffer, HAL_BASE_t len, uint8_t token){
+  return usbcdc_write(TEST_SERIAL_INTFNUM, buffer, len, token);
+}
+
+static inline void testif_send_trigger(void){
+  return usbcdc_send_trigger(TEST_SERIAL_INTFNUM);
+}
+
 #else
   #error "Interface for the Serial Test has an unrecognized type" 
 #endif
