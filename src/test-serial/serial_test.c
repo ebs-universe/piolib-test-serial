@@ -1,7 +1,7 @@
 
 
 #include <application.h>
-#include <hal/uc/uart.h>
+#include <hal/uc.h>
 
 #ifdef APP_ENABLE_BLINK
 #include <blink.h>
